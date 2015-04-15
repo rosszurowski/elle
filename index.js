@@ -28,7 +28,7 @@ Elle.registerTag = function(name, context) {
 		if (typeof fn !== 'function') return;
 		defineProp(self.prototype, event + 'Callback', fn);
 	});
-	return register(name, { prototype: this.prototype });
+	return register.call(context, name, { prototype: this.prototype });
 }
 
 defineProp(Elle.prototype, 'state', {}, true);
