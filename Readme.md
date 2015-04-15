@@ -58,9 +58,10 @@ document.querySelector('x-dropdown').toggle();
 
 ### Benefits 
 
-This approach is particularly useful for elements re-used across pages. Rather than grouping all your code in a `DOMContentLoaded` event handler, you can use semantic markup and have element behaviour isolated within modules.
+Beyond the obvious semantic benefits for your HTML, this approach also helps work with re-used elements. Because the browser takes care of element initialization, you don't need to worry about boilerplate application start-up code.
 
-Rather than:
+The browser creates your components instead of you writing:
+
 ```js
 $(document).ready(function() {
 	$('.timestamp').each(function(el) {
@@ -73,7 +74,7 @@ $(document).ready(function() {
 });
 ```
 
-You can write your components as modules:
+It also makes it easier to write your code in a modular way:
 
 ```js
 class Timestamp extends Elle {
@@ -83,17 +84,8 @@ class Timestamp extends Elle {
 }
 
 Timestamp.registerTag('x-timestamp', document);
-```
 
-And then simply use them in HTML.
-
-```html
-<x-timestamp>1429071739835</x-timestamp>
-<x-dropdown>
-	<div>Option 1</div>
-	<div>Option 2</div>
-	<div>Option 3</div>
-</x-dropdown>
+module.exports = Timestamp;
 ```
 
 
