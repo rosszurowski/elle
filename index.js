@@ -22,12 +22,13 @@ Elle.prototype = Object.create(HTMLElement.prototype);
  */
 Elle.registerTag = function(name, context) {
 	var self = this;
+	var register = context.registerElement || context.register;
 	events.forEach(function(event) {
 		var fn = self.prototype[event];
 		if (typeof fn !== 'function') return;
 		defineProp(self.prototype, event + 'Callback', fn);
 	});
-	return context.registerElement(name, { prototype: this.prototype });
+	return register(name, { prototype: this.prototype });
 }
 
 defineProp(Elle.prototype, 'state', {}, true);
