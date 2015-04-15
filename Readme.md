@@ -18,28 +18,47 @@ npm install rosszurowski/elle
 var Elle = require('elle');
 
 class Dropdown extends Elle {
-	// fires on `document.createElement`
+	// Custom elements have standard lifecycle events that you can hook into
 	created() {
+		console.log('Element created');
 	}
-	// fires when the element is added to the DOM
 	attached() {
-		$(this).dropdown();
+		console.log('Element added to DOM');
 	}
-	// fires when an attribute has changed
-	attributeChanged() {
+	attributeChanged(attributeName, previousValue, newValue) {
+		console.log('Element attribute %s was changed from %s to %s', attributeName, previousValue, newValue);
 	}
-	// fires when the element has been detached from the DOM
 	detached() {
+		console.log('Element removed from DOM');
 	}
 	// you may also add any custom methods that you'd like
 	toggle() {
+		console.log('Toggling dropdown');
 	}
 }
 
 Dropdown.registerTag('x-dropdown', document);
 ```
 
-This approach is particularly useful for elements re-used across pages. Rather than grouping all your code in a `DOMContentLoaded` event handler, you can use semantic markup and have the elements take care of their own behaviour.
+You can then use the `x-dropdown` tag in your html.
+
+```html
+<x-dropdown>
+	<div class="option">One</div>
+	<div class="option">Two</div>
+	<div class="option">Three</div>
+</x-dropdown>
+```
+
+And access any custom properties directly from the DOM:
+
+```js
+document.querySelector('x-dropdown').toggle();
+```
+
+### Benefits 
+
+This approach is particularly useful for elements re-used across pages. Rather than grouping all your code in a `DOMContentLoaded` event handler, you can use semantic markup and have element behaviour isolated within modules.
 
 Rather than:
 ```js
@@ -82,7 +101,7 @@ And then simply use them in HTML.
 
 Currently, [support for custom elements](http://caniuse.com/#feat=custom-elements) is flaky, even amongst up-to-date browsers. Luckily, the features behind Custom Elements can be easily polyfilled.
 
-Elle exposes a shortcut to the [document-register-element](https://www.npmjs.com/package/document-register-element) polyfill. To include it, somewhere in your code run:
+Elle exposes a shortcut to the [document-register-element](https://www.npmjs.com/package/document-register-element) polyfill, which adds about 6kb to your bundle. To include it, somewhere in your code run:
 
 ```js
 require('elle/polyfill');
