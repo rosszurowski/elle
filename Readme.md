@@ -80,13 +80,15 @@ And then simply use them in HTML.
 
 ## Browser Support
 
-Currently, [support for custom elements](http://caniuse.com/#feat=custom-elements) is flaky, even amongst modern browsers. Luckily, the features behind Custom Elements can be easily polyfilled.
+Currently, [support for custom elements](http://caniuse.com/#feat=custom-elements) is flaky, even amongst up-to-date browsers. Luckily, the features behind Custom Elements can be easily polyfilled.
 
-Elle exposes a shortcut to the [custom-elements](https://github.com/oliver-moran/custom-elements) polyfill. To include it, somewhere in your code, run:
+Elle exposes a shortcut to the [document-register-element](https://www.npmjs.com/package/document-register-element) polyfill. To include it, somewhere in your code run:
 
 ```js
 require('elle/polyfill');
 ```
+
+With the polyfill, Elle works on **all modern browsers** in addition to IE8 and up.
 
 ## Testing
 
