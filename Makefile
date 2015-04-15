@@ -18,10 +18,10 @@ clean:
 # Files	
 dist/elle.js: index.js
 	@mkdir -p $(@D)
-	@$(BIN)/browserify $< -t babelify -s Elle -o $@
+	@$(BIN)/browserify $< -s Elle -o $@
 dist/elle.min.js: index.js
 	@mkdir -p $(@D)
-	@$(BIN)/browserify $< -t babelify -s Elle -o $@
+	@$(BIN)/browserify $< -s Elle -o $@
 	@cat $@ | $(BIN)/uglifyjs -m -o $@
 
 node_modules: package.json
