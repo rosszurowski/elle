@@ -24,9 +24,10 @@ Elle.registerTag = function(name, context) {
 	var self = this;
 	var register = context.registerElement || context.register;
 	events.forEach(function(event) {
-		var fn = self.prototype[event];
+		var callback = event + 'Callback';
+		var fn = self.prototype[callback] || self.prototype[event];
 		if (typeof fn !== 'function') return;
-		defineProp(self.prototype, event + 'Callback', fn);
+		defineProp(self.prototype, callback, fn);
 	});
 	return register.call(context, name, { prototype: this.prototype });
 }
