@@ -88,7 +88,7 @@ Elle exposes a shortcut to the [document-register-element](https://www.npmjs.com
 require('elle/polyfill');
 ```
 
-With the polyfill, Elle works on **all modern browsers** in addition to IE8 and up.
+With the polyfill included, [Elle supports IE8+ and all modern browsers](https://www.npmjs.com/package/document-register-element#tested-on).
 
 ## Testing
 
