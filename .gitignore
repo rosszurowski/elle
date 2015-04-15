@@ -1,0 +1,3 @@
+# Ignore npm scraps
+node_modules/
+npm-debug.log

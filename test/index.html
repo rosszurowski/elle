@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>El Tests</title>
+	<link href="../node_modules/mocha/mocha.css" rel="stylesheet" type="text/css" />
+	<script src="../dist/elle.js"></script>
+</head>
+<body>
+	<div id="fixtures"></div>
+	<div id="mocha"></div>
+	<script src="../node_modules/mocha/mocha.js"></script>
+	<script src="../node_modules/chai/chai.js"></script>
+	<script>
+		mocha.setup({ui: 'bdd'});
+		expect = chai.expect;
+	</script>
+	<script src="index.js"></script>
+	<script>mocha.run();</script>
+</body>
+</html>
