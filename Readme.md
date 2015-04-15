@@ -6,11 +6,11 @@ Inspired by Michael Macaulay's article on [simple custom elements](http://michae
 
 ## Installation
 
+Because the utility of this module pretty narrow (it's essentially just a more concise syntax), I've kept it off of npm. You can install it directly from Github.
+
 ```bash
 npm install rosszurowski/elle
 ```
-
-Because the value of this utility module pretty narrow, I've kept it off of npm.
 
 ## Usage
 
@@ -30,6 +30,11 @@ class Dropdown extends Elle {
 	}
 	// fires when the element has been detached from the DOM
 	detached() {
+	}
+	// you may also add any custom methods that you'd like
+	toggle() {
+	}
+	banana() {
 	}
 }
 
