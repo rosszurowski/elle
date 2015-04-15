@@ -34,8 +34,6 @@ class Dropdown extends Elle {
 	// you may also add any custom methods that you'd like
 	toggle() {
 	}
-	banana() {
-	}
 }
 
 Dropdown.registerTag('x-dropdown', document);
