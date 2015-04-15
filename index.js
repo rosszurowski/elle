@@ -1,11 +1,11 @@
 "use strict";
 
 // As per https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements
-var events = [
-	'created',
-	'attached',
-	'detached',
-	'attributeChanged'
+var aliases = [
+	{ name: 'created', callback: 'createdCallback' },
+	{ name: 'attached', callback: 'attachedCallback' },
+	{ name: 'attributeChanged', callback: 'attributeChangedCallback' },
+	{ name: 'detached', callback: 'detachedCallback' }
 ];
 
 var Elle = function() {
@@ -22,14 +22,18 @@ Elle.prototype = Object.create(HTMLElement.prototype);
  */
 Elle.registerTag = function(name, context) {
 	var self = this;
-	var register = context.registerElement || context.register;
-	events.forEach(function(event) {
-		var callback = event + 'Callback';
-		var fn = self.prototype[callback] || self.prototype[event];
-		if (typeof fn !== 'function') return;
-		defineProp(self.prototype, callback, fn);
-	});
-	return register.call(context, name, { prototype: this.prototype });
+	var proto = Object.create(self.prototype);
+
+	aliases
+		.filter(function(evt) { return typeof proto[evt.callback] !== 'function' })
+		.filter(function(evt) { return typeof proto[evt.name] === 'function' })
+		.forEach(function(evt) {
+			defineProp(proto, evt.callback, proto[evt.name]);
+			// Firefox and Safari freak out unless we remove the aliased functions
+			proto[evt.name] = undefined;
+		});
+
+	return context.registerElement(name, { prototype: proto });
 }
 
 defineProp(Elle.prototype, 'state', {}, true);
@@ -39,7 +43,6 @@ module.exports = Elle;
 
 function defineProp(obj, name, fn, writable) {
 	Object.defineProperty(obj, name,  {
-	 	configurable: false,
 	 	enumerable: false,
 	 	writable: writable || false,
 	 	value: fn
